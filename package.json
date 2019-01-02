@@ -1,6 +1,6 @@
 {
-    "name": "hello-world",
-    "description": "Sample NodeJs web application",
+    "name": "serverless-aggregator",
+    "description": "NodeJS Aggregator to be run on Lambda",
     "version": "0.0.1",
     "private": true,
     "devDependencies": {
