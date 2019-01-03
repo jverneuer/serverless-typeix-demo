@@ -9,8 +9,6 @@
         "unit.js": "2.0.0"
     },
     "dependencies": {
-        "aws-lambda-http-server": "^0.1.12",
-        "gsg-typeix": "^2.0.4"
     }, 
     "scripts": {
         "test": "mocha --recursive tests"
