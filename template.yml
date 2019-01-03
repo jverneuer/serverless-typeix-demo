@@ -54,5 +54,22 @@ Resources:
           Action: sts:AssumeRole
       Path: /
       ManagedPolicyArns:
-        -  arn:aws:iam::454597441955:role/td-development-iam-lambda-aggregator
+        -  arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
       PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
+      
+    AllAPIAccessForDynamoDBStreams:
+      Type: "AWS::IAM::Policy"
+      DependsOn: [LambdaExecutionRole]
+      Properties:
+        PolicyName: AllAPIAccessForDynamoDBStreams
+        Roles: [!Ref LambdaExecutionRole]
+        PolicyDocument:
+          Statement:
+          - Effect: Allow
+            Action: [
+                  "dynamodb:GetRecords",
+                  "dynamodb:GetShardIterator",
+                  "dynamodb:DescribeStream",
+                  "dynamodb:ListStreams"
+            ]
+            Resource: ["*"]
