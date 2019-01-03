@@ -29,11 +29,17 @@ Resources:
     Properties:
       Handler: index.get
       Runtime: nodejs8.10
-      Role:
-        Fn::GetAtt:
-        - LambdaExecutionRole
-        - Arn
-        arn:aws:iam::454597441955:policy/dynamodb-record-copy-lambda-permissions
+      Policies:
+        - AWSLambdaExecute
+        - Version: '2012-10-17' # Policy Document
+          Statement:
+           - Effect: Allow
+             Action:
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:DescribeStream
+              - dynamodb:ListStreams
+             Resource: '*'
       Events:
         GetEvent:
           Type: DynamoDB
