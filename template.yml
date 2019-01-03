@@ -40,7 +40,6 @@ Resources:
             Stream: arn:aws:dynamodb:eu-west-1:454597441955:table/development_page/stream/2018-05-07T14:50:19.682
             StartingPosition: LATEST
             BatchSize: 10
-            Enabled: false
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
