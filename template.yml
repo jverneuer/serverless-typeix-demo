@@ -37,7 +37,7 @@ Resources:
         GetEvent:
           Type: DynamoDB
           Properties:
-            Stream: arn:aws:dynamodb:eu-west-1:454597441955:table/development_page/stream/2018-05-07T14:50:19.682
+            Stream: arn:aws:dynamodb:eu-west-1:${AWS::AccountId}:table/development_page/stream/2018-05-07T14:50:19.682
             StartingPosition: LATEST
             BatchSize: 10
             Enabled: false
@@ -55,5 +55,5 @@ Resources:
           Action: sts:AssumeRole
       Path: /
       ManagedPolicyArns:
-        -  arn:aws:iam::454597441955:role/td-development-iam-lambda-aggregator
+        -  arn:aws:iam::${AWS::AccountId}:role/td-development-iam-lambda-aggregator
       PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
