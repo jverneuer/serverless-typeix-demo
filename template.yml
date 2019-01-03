@@ -32,8 +32,8 @@ Resources:
       Role:
         Fn::GetAtt:
         - LambdaExecutionRole
-        - arn:aws:iam::454597441955:policy/dynamodb-record-copy-lambda-permissions
         - Arn
+        arn:aws:iam::454597441955:policy/dynamodb-record-copy-lambda-permissions
       Events:
         GetEvent:
           Type: DynamoDB
