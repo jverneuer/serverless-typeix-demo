@@ -57,19 +57,19 @@ Resources:
         -  arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
       PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
       
-    AllAPIAccessForDynamoDBStreams:
-      Type: "AWS::IAM::Policy"
-      DependsOn: [LambdaExecutionRole]
-      Properties:
-        PolicyName: AllAPIAccessForDynamoDBStreams
-        Roles: [!Ref LambdaExecutionRole]
-        PolicyDocument:
-          Statement:
-          - Effect: Allow
-            Action: [
-                  "dynamodb:GetRecords",
-                  "dynamodb:GetShardIterator",
-                  "dynamodb:DescribeStream",
-                  "dynamodb:ListStreams"
-            ]
-            Resource: ["*"]
+  AllAPIAccessForDynamoDBStreams:
+    Type: "AWS::IAM::Policy"
+    DependsOn: [LambdaExecutionRole]
+    Properties:
+      PolicyName: AllAPIAccessForDynamoDBStreams
+      Roles: [!Ref LambdaExecutionRole]
+      PolicyDocument:
+        Statement:
+        - Effect: Allow
+          Action: [
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:DescribeStream",
+                "dynamodb:ListStreams"
+          ]
+          Resource: ["*"]
