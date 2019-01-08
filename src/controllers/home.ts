@@ -65,13 +65,11 @@ export class HomeController extends CoreController {
    */
   @Action("index")
   beforeIndex(@Chain data: string): Promise<string> {
-    console.log("*********");
     console.log(this.request.getContext()) ;
-    console.log("*********");
     console.log(this.request.getEvent()) ;
     return new Promise((resolve, reject)=>{
         setTimeout(()=>{
-            resolve("Success 123");
+            resolve("Success Context: " + JSON.stringify(this.request.getContext()) + "Event: " + JSON.stringify(this.request.getEvent()));
         }, 100)
     })
   }
