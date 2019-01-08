@@ -28,6 +28,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.get
+      Tracing: PassThrough
       Runtime: nodejs8.10
       Policies:
         - AWSLambdaExecute
@@ -35,6 +36,8 @@ Resources:
           Statement:
            - Effect: Allow
              Action:
+              - xray:PutTraceSegments
+              - xray:PutTelemetryRecords
               - dynamodb:GetRecords
               - dynamodb:GetShardIterator
               - dynamodb:DescribeStream
