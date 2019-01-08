@@ -4,10 +4,12 @@ phases:
     commands:
       - npm install
       - pip install --upgrade awscli
-      - npm run compile
+      - >-
+        cd node_modules cd gsg-typeix && npm i && npm run compile && cd .. && cd
+        ..
   pre_build:
-    commands:
-      #- npm test
+    commands: 
+        - npm run compile
   build:
     commands:
       - >-

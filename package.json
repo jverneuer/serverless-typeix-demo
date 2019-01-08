@@ -9,7 +9,7 @@
         "typescript": "^3.2.2"
     },
     "dependencies": {
-        "gsg-typeix": "git+https://jverneuer@github.com/jverneuer/gsg-typeix.git"
+        "gsg-typeix": "https://github.com/jverneuer/gsg-typeix/tarball/master"
     },
     "scripts": {
         "compile": "tsc -p tsconfig.json",
