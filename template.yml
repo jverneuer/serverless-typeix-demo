@@ -13,7 +13,7 @@ Parameters:
   Stage:
     Type: String
     Description: The name for a project pipeline stage, such as Staging or Prod, for which resources are provisioned and deployed.
-    Default: ''
+    Default: 'dev'
 
 Globals:
   Function:
@@ -22,13 +22,14 @@ Globals:
       Enabled: true
       Type: AllAtOnce
       Role: !Ref CodeDeployRole
+      Stage: 'production'
 
 Resources:
   GetHelloWorld:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.get
-      Tracing: PassThrough
+      Tracing: Active
       Runtime: nodejs8.10
       Policies:
         - AWSLambdaExecute
