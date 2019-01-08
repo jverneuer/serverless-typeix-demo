@@ -7,7 +7,7 @@ var path = require('path');
 
 const fire = require('./build/index');
 
-exports.get = function(event, context, callback) {
+exports.run = function(event, context, callback) {
     fire.fire(event, context, callback);
 };
 

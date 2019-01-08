@@ -29,7 +29,7 @@ Resources:
   invokeOnDynamo:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: src/index.run
+      Handler: index.run
       Runtime: nodejs8.10
       Policies:
         - AWSLambdaExecute
