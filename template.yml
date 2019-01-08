@@ -1,73 +1,65 @@
-AWSTemplateFormatVersion: 2010-09-09T00:00:00.000Z
+AWSTemplateFormatVersion: 2010-09-09
 Transform:
-  - 'AWS::Serverless-2016-10-31'
-  - 'AWS::CodeStar'
+- AWS::Serverless-2016-10-31
+- AWS::CodeStar
+
 Parameters:
   ProjectId:
     Type: String
     Description: AWS CodeStar projectID used to associate new resources to team members
   CodeDeployRole:
     Type: String
-    Description: >-
-      IAM role to allow AWS CodeDeploy to manage deployment of AWS Lambda
-      functions
+    Description: IAM role to allow AWS CodeDeploy to manage deployment of AWS Lambda functions
   Stage:
     Type: String
-    Description: >-
-      The name for a project pipeline stage, such as Staging or Prod, for which
-      resources are provisioned and deployed.
+    Description: The name for a project pipeline stage, such as Staging or Prod, for which resources are provisioned and deployed.
     Default: ''
+
 Globals:
   Function:
     AutoPublishAlias: live
     DeploymentPreference:
       Enabled: true
-      Type: AllAtOnce
-      Role:
-        Ref: CodeDeployRole
+      Type: LambdaAllAtOnce
+      Role: !Ref CodeDeployRole
+
 Resources:
-  invokeOnDynamo:
-    Type: 'AWS::Serverless::Function'
+  GetHelloWorld:
+    Type: AWS::Serverless::Function
     Properties:
       Handler: index.run
       Runtime: nodejs8.10
       Policies:
         - AWSLambdaExecute
-        - Version: '2012-10-17'
+        - Version: '2012-10-17' # Policy Document
           Statement:
-            - Effect: Allow
-              Action:
-                - 'dynamodb:GetRecords'
-                - 'dynamodb:GetShardIterator'
-                - 'dynamodb:DescribeStream'
-                - 'dynamodb:ListStreams'
-              Resource: '*'
+           - Effect: Allow
+             Action:
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:DescribeStream
+              - dynamodb:ListStreams
+             Resource: '*'
       Events:
         GetEvent:
           Type: DynamoDB
           Properties:
-            Stream: >-
-              arn:aws:dynamodb:eu-west-1:454597441955:table/development_page/stream/2018-05-07T14:50:19.682
+            Stream: arn:aws:dynamodb:eu-west-1:454597441955:table/development_page/stream/2018-05-07T14:50:19.682
             StartingPosition: LATEST
             BatchSize: 10
-      Description: ''
-      MemorySize: ''
+
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
-    Type: 'AWS::IAM::Role'
+    Type: AWS::IAM::Role
     Properties:
-      RoleName:
-        'Fn::Sub': 'CodeStar-${ProjectId}-Execution${Stage}'
+      RoleName: !Sub 'CodeStar-${ProjectId}-Execution${Stage}'
       AssumeRolePolicyDocument:
         Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-                - lambda.amazonaws.com
-            Action: 'sts:AssumeRole'
+        - Effect: Allow
+          Principal:
+            Service: [lambda.amazonaws.com]
+          Action: sts:AssumeRole
       Path: /
       ManagedPolicyArns:
-        - 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
-      PermissionsBoundary:
-        'Fn::Sub': >-
-          arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary
+        -  arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
