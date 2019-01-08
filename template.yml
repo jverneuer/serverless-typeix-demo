@@ -28,7 +28,7 @@ Resources:
   GetHelloWorld:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: index.get
+      Handler: build/index.get
       Tracing: Active
       Runtime: nodejs8.10
       Policies:
