@@ -9,7 +9,7 @@
         "typescript": "^3.2.2"
     },
     "dependencies": {
-        "gsg-typeix": "^2.0.4"
+        "gsg-typeix": "git+ssh://git@github.com:jverneuer/gsg-typeix.git"
     },
     "scripts": {
         "compile": "tsc -p tsconfig.json",
